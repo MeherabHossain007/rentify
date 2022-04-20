@@ -14,8 +14,9 @@ export default function Hero() {
     <Stack
       minH={"40vh"}
       direction={{ base: "column", md: "row" }}
-      pr={200}
+      justifyContent={"center"}
       pl={200}
+      mb={50}
     >
       <Flex flex={1} align={"center"} justify={"space-between"}>
         <Stack spacing={6} w={"full"} maxW={"xl"}>
@@ -61,7 +62,7 @@ export default function Hero() {
           </Stack>
         </Stack>
       </Flex>
-      <Flex h={"50vh"}>
+      <Flex>
         <Image
           alt={"Login Image"}
           boxSize={"600px"}

@@ -78,7 +78,7 @@ export default function Navbar() {
             fontSize={"sm"}
             fontWeight={400}
             variant={"link"}
-            href={"/login"}
+            href={"/screens/login"}
           >
             Login
           </Button>
@@ -92,7 +92,7 @@ export default function Navbar() {
             _hover={{
               bg: "green.400",
             }}
-            href={"/signUp"}
+            href={"/screens/signUp"}
           >
             Sign Up
           </Button>

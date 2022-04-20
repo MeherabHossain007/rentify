@@ -20,7 +20,7 @@ export default function RentCard() {
       <Stack
         borderWidth="1px"
         borderRadius="lg"
-        w={"60%"}
+        w={"100%"}
         height={{ sm: "476px", md: "20rem" }}
         direction={{ base: "column", md: "row" }}
         bg={useColorModeValue("white", "gray.900")}
@@ -50,7 +50,7 @@ export default function RentCard() {
               BDT
             </Text>
             <Text fontSize="40" fontWeight="bold">
-              4000
+              40000
             </Text>
           </Stack>
           <Text>Keraniganj, Dhaka</Text>
