@@ -15,6 +15,12 @@ import {
   PopoverContent,
   useColorModeValue,
   useDisclosure,
+  Portal,
+  PopoverArrow,
+  PopoverHeader,
+  PopoverCloseButton,
+  PopoverBody,
+  PopoverFooter,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -23,6 +29,8 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 import AdPost from "./adPost";
+import Login from "../screens/login";
+import SignUp from "../screens/signUp";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -73,17 +81,30 @@ export default function Navbar() {
           direction={"row"}
           spacing={6}
         >
-          <Button
-            as={"a"}
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            href={"/screens/login"}
-          >
-            Login
-          </Button>
-          <Button
-            as={"a"}
+          <Popover>
+            <PopoverTrigger>
+              <Button
+                as={"a"}
+                fontSize={"sm"}
+                fontWeight={400}
+                variant={"link"}
+              >
+                Login
+              </Button>
+            </PopoverTrigger>
+            <Portal>
+              <PopoverContent minH={"50vh"} minW={"60vh"}>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverBody>
+                  <Login />
+                </PopoverBody>
+              </PopoverContent>
+            </Portal>
+          </Popover>
+          <Popover>
+            <PopoverTrigger>
+              <Button
             fontSize={"sm"}
             fontWeight={400}
             color="white"
@@ -92,11 +113,21 @@ export default function Navbar() {
             _hover={{
               bg: "green.400",
             }}
-            href={"/screens/signUp"}
-          >
-            Sign Up
-          </Button>
-          <AdPost/>
+              >
+                Sign Up
+              </Button>
+            </PopoverTrigger>
+            <Portal>
+              <PopoverContent minH={"50vh"} minW={"60vh"}>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverBody>
+                  <SignUp/>
+                </PopoverBody>
+              </PopoverContent>
+            </Portal>
+          </Popover>
+          <AdPost />
         </Stack>
       </Flex>
     </Box>

@@ -14,10 +14,20 @@ import {
 } from "@chakra-ui/react";
 import { FaBed, FaBath, FaBorderAll } from "react-icons/fa";
 
-export default function RentCard() {
+export default function RentCard({
+  amount,
+  location,
+  type,
+  title,
+  bed,
+  bath,
+  area,
+}) {
   return (
     <Center py={6}>
       <Stack
+        as={"a"}
+        href="/components/rentDetails"
         borderWidth="1px"
         borderRadius="lg"
         w={"100%"}
@@ -50,33 +60,31 @@ export default function RentCard() {
               BDT
             </Text>
             <Text fontSize="40" fontWeight="bold">
-              40000
+              {amount}
             </Text>
           </Stack>
-          <Text>Keraniganj, Dhaka</Text>
-          <Badge>Apartment</Badge>
+          <Text>{location}</Text>
+          <Badge>{type}</Badge>
           <Heading
             fontSize={20}
             overflow={"hidden"}
             orientation={"horizontal"}
-            display={"-webkit-flex"}
             noOfLines={1}
           >
-            Visit This Brand New Apartment For Sale In Ati Bazar Near Marine
-            Shishu Park
+            {title}
           </Heading>
           <HStack spacing={7} pt={3} alignItems={"baseline"}>
             <HStack>
               <FaBed size={20} />
-              <Text>2</Text>
+              <Text>{bed}</Text>
             </HStack>
             <HStack>
               <FaBath size={20} />
-              <Text>2</Text>
+              <Text>{bath}</Text>
             </HStack>
             <HStack>
               <FaBorderAll size={20} />
-              <Text>1700 sqrt</Text>
+              <Text>{area}</Text>
             </HStack>
           </HStack>
           <Flex justifyContent={"flex-end"} flexDirection={"column"} flex={1}>

@@ -13,10 +13,11 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
-export default function SimpleCard() {
+export default function Login() {
   return (
     <Flex
-      minH={'100vh'}
+      minH={'50vh'}
+      minW={'50vh'}
       align={'center'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
@@ -24,7 +25,7 @@ export default function SimpleCard() {
         <Stack align={'center'}>
           <Heading fontSize={'4xl'}>Sign in to your account</Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
-            to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
+            to enjoy all of our cool <Link color={'green.400'}>features</Link> ✌️
           </Text>
         </Stack>
         <Box
@@ -47,13 +48,13 @@ export default function SimpleCard() {
                 align={'start'}
                 justify={'space-between'}>
                 <Checkbox>Remember me</Checkbox>
-                <Link color={'blue.400'}>Forgot password?</Link>
+                <Link color={'green.400'}>Forgot password?</Link>
               </Stack>
               <Button
-                bg={'blue.400'}
+                bg={'green.400'}
                 color={'white'}
                 _hover={{
-                  bg: 'blue.500',
+                  bg: 'green.500',
                 }}>
                 Sign in
               </Button>
