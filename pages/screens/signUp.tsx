@@ -13,16 +13,32 @@ import {
   Text,
   useColorModeValue,
   Link,
+  FormHelperText,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { supabase } from "../../utils/supabaseClient";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
+  const handleSignUp = async (
+    Email: string,
+    Password: string,
+    Name: string
+  ) => {
+    const { data, error } = await supabase
+      .from("profiles")
+      .insert([{ email: Email, name: Name, password: Password }]);
+    if (error) throw error;
+    
+  };
   return (
     <Flex
-      minH={"50vh"}
+      minH={"50-*+vh"}
       minW={"50vh"}
       align={"center"}
       justify={"center"}
@@ -46,26 +62,32 @@ export default function SignUp() {
           <Stack spacing={4}>
             <HStack>
               <Box>
-                <FormControl id="firstName" isRequired>
-                  <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
-                </FormControl>
-              </Box>
-              <Box>
-                <FormControl id="lastName">
-                  <FormLabel>Last Name</FormLabel>
-                  <Input type="text" />
+                <FormControl id="name" isRequired>
+                  <FormLabel>Name</FormLabel>
+                  <Input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </FormControl>
               </Box>
             </HStack>
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? "text" : "password"} />
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
                 <InputRightElement h={"full"}>
                   <Button
                     variant={"ghost"}
@@ -77,6 +99,8 @@ export default function SignUp() {
                   </Button>
                 </InputRightElement>
               </InputGroup>
+              <FormHelperText>- Use at least one special character</FormHelperText>
+              <FormHelperText>- Use at least one number</FormHelperText>
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
@@ -87,13 +111,20 @@ export default function SignUp() {
                 _hover={{
                   bg: "green.500",
                 }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSignUp(email, password, name);
+                }}
               >
                 Sign up
               </Button>
             </Stack>
             <Stack pt={6}>
               <Text align={"center"}>
-                Already a user? <Link color={"green.400"} href='/screens/login'>Login</Link>
+                Already a user?{" "}
+                <Link color={"green.400"} href="/screens/login">
+                  Login
+                </Link>
               </Text>
             </Stack>
           </Stack>

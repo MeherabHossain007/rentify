@@ -127,7 +127,6 @@ export default function Navbar() {
               </PopoverContent>
             </Portal>
           </Popover>
-          <AdPost />
         </Stack>
       </Flex>
     </Box>
