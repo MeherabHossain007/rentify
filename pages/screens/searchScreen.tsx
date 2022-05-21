@@ -30,6 +30,7 @@ const Card = ({ children }: any) => {
       justifyContent={"center"}
       alignItems={"center"}
       h={100}
+      w={"100%"}
       p={4}
     >
       {children}
@@ -235,24 +236,6 @@ export default function SearchScreen() {
                 flexDirection="row"
                 justifyContent={"center"}
               >
-                <Card>
-                  <Text>Bed</Text>
-                  <FormControl>
-                    <Input
-                      id="beds"
-                      onChange={(e) => setBeds(e.target.value)}
-                    />
-                  </FormControl>
-                </Card>
-                <Card>
-                  <Text>Bath</Text>
-                  <FormControl>
-                    <Input
-                      id="baths"
-                      onChange={(e) => setBaths(e.target.value)}
-                    />
-                  </FormControl>
-                </Card>
                 <Card>
                   <FormControl>
                     <FormLabel htmlFor="amount">Price</FormLabel>
