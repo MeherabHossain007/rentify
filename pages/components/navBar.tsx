@@ -1,39 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Flex,
-  Text,
   IconButton,
   Button,
   Stack,
-  Collapse,
-  Icon,
   Link,
   Image,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
   useColorModeValue,
   useDisclosure,
-  Portal,
-  PopoverArrow,
-  PopoverHeader,
-  PopoverCloseButton,
-  PopoverBody,
-  PopoverFooter,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalCloseButton,
 } from "@chakra-ui/react";
-import {
-  HamburgerIcon,
-  CloseIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-} from "@chakra-ui/icons";
-import AdPost from "./adPost";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import Login from "../screens/login";
 import SignUp from "../screens/signUp";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
+  const {
+    isOpen: islogOpen,
+    onOpen: onlogOpen,
+    onClose: onlogClose,
+  } = useDisclosure();
+  const {
+    isOpen: isSignOpen,
+    onOpen: onSignOpen,
+    onClose: onSignClose,
+  } = useDisclosure();
 
   return (
     <Box>
@@ -81,52 +78,56 @@ export default function Navbar() {
           direction={"row"}
           spacing={6}
         >
-          <Popover>
-            <PopoverTrigger>
-              <Button
-                as={"a"}
-                fontSize={"sm"}
-                fontWeight={400}
-                variant={"link"}
-              >
-                Login
-              </Button>
-            </PopoverTrigger>
-            <Portal>
-              <PopoverContent minH={"50vh"} minW={"60vh"}>
-                <PopoverArrow />
-                <PopoverCloseButton />
-                <PopoverBody>
-                  <Login />
-                </PopoverBody>
-              </PopoverContent>
-            </Portal>
-          </Popover>
-          <Popover>
-            <PopoverTrigger>
-              <Button
+          <Button
+            as={"a"}
+            fontSize={"sm"}
+            fontWeight={400}
+            variant={"link"}
+            onClick={onlogOpen}
+          >
+            Login
+          </Button>
+          <Modal
+            isOpen={islogOpen}
+            onClose={onlogClose}
+            size={"xl"}
+            id={"Login"}
+          >
+            <ModalOverlay backdropFilter="blur(10px)" />
+            <ModalContent>
+              <ModalCloseButton />
+              <ModalBody>
+                <Login />
+              </ModalBody>
+            </ModalContent>
+          </Modal>
+          <Button
             fontSize={"sm"}
             fontWeight={400}
             color="white"
             variant={"solid"}
             bg="green.400"
             _hover={{
-              bg: "green.400",
+              bg: "green.300",
             }}
-              >
-                Sign Up
-              </Button>
-            </PopoverTrigger>
-            <Portal>
-              <PopoverContent minH={"50vh"} minW={"60vh"}>
-                <PopoverArrow />
-                <PopoverCloseButton />
-                <PopoverBody>
-                  <SignUp/>
-                </PopoverBody>
-              </PopoverContent>
-            </Portal>
-          </Popover>
+            onClick={onSignOpen}
+          >
+            Sign Up
+          </Button>
+          <Modal
+            isOpen={isSignOpen}
+            onClose={onSignClose}
+            size={"xl"}
+            id={"SignUp"}
+          >
+            <ModalOverlay backdropFilter='blur(10px)' />
+            <ModalContent>
+              <ModalCloseButton />
+              <ModalBody>
+                <SignUp />
+              </ModalBody>
+            </ModalContent>
+          </Modal>
         </Stack>
       </Flex>
     </Box>
@@ -142,23 +143,19 @@ const DesktopNav = () => {
     <Stack direction={"row"} spacing={4} align="center">
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
-          <Popover trigger={"hover"} placement={"bottom-start"}>
-            <PopoverTrigger>
-              <Link
-                p={2}
-                href={navItem.href ?? "#"}
-                fontSize={"sm"}
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: "none",
-                  color: linkHoverColor,
-                }}
-              >
-                {navItem.label}
-              </Link>
-            </PopoverTrigger>
-          </Popover>
+          <Link
+            p={2}
+            href={navItem.href ?? "#"}
+            fontSize={"sm"}
+            fontWeight={500}
+            color={linkColor}
+            _hover={{
+              textDecoration: "none",
+              color: linkHoverColor,
+            }}
+          >
+            {navItem.label}
+          </Link>
         </Box>
       ))}
     </Stack>
@@ -176,6 +173,10 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Home",
     href: "/",
+  },
+  {
+    label: "Search",
+    href: "/screens/searchScreen",
   },
   {
     label: "About",

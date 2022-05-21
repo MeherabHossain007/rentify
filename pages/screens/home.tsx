@@ -6,7 +6,9 @@ import {
   VStack,
   Wrap,
   WrapItem,
-  Badge,
+  Text,
+  Stack,
+  Container,
 } from "@chakra-ui/react";
 import React, { Component, useEffect, useState } from "react";
 import { supabase } from "../../utils/supabaseClient";
@@ -57,7 +59,9 @@ export default function HomePage() {
                     "https://firebasestorage.googleapis.com/v0/b/rentify-4f59b.appspot.com/o/colonial-style-house-night-scene.jpg?alt=media&token=6bfee092-54bc-4c68-904b-5d7af87a78c0"
                   }
                   post_id={posts.post_id}
-                />
+                >
+                  
+                </RentCard>
               </WrapItem>
             ) : (
               ""
@@ -73,10 +77,29 @@ export default function HomePage() {
       <Hero />
       <Center>
         <VStack flex={1}>
+          <Stack spacing={4} as={Container} maxW={"3xl"} textAlign={"center"}>
+            <Heading
+              fontSize={"4xl"}
+              bgGradient={"linear(to-r, #22c1c3, #fdbb2d)"}
+              bgClip="text"
+            >
+              Search Your desire Rent
+            </Heading>
+            <Text color={"gray.600"} fontSize={"xl"}>
+              Easy access and fast way of finding rent through Internet and
+              giving user friendly services to everyone.
+            </Text>
+          </Stack>
           <Search />
         </VStack>
       </Center>
-      <Heading textAlign="center" p={10}>
+
+      <Heading
+        textAlign="center"
+        p={10}
+        bgGradient={"linear(to-r, #22c1c3, #fdbb2d)"}
+        bgClip="text"
+      >
         Catagory
       </Heading>
       <HStack flex={1} justify="center" mb={5}>
@@ -88,17 +111,22 @@ export default function HomePage() {
         </div>
         <div onClick={() => handleClick("Roomate")}>
           <HomeCard Title={"Roomate"} />
-        </div>{" "}
+        </div>
         <div onClick={() => handleClick("Sublet")}>
           <HomeCard Title={"Sublet"} />
         </div>
       </HStack>
-      <Heading textAlign="center" p={10}>
+      <Heading
+        textAlign="center"
+        p={10}
+        bgGradient={"linear(to-r, #22c1c3, #fdbb2d)"}
+        bgClip="text"
+      >
         Browse Ads
       </Heading>
-      <HStack justify="center" pl={100} pr={100}>
+      <VStack justify="center" pl={170} pr={170}>
         <Post posts={posts} />
-      </HStack>
+      </VStack>
       <Footer />
       <div>
         <script

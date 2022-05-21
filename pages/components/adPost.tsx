@@ -15,11 +15,6 @@ import {
   FormHelperText,
   Input,
   Select,
-  NumberInput,
-  NumberInputField,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  NumberInputStepper,
   HStack,
   Text,
   Textarea,
@@ -52,25 +47,23 @@ function AdPost() {
     beds: string,
     baths: string,
     description: string,
-    type: string,
+    type: string
   ) => {
-    const { data, error } = await supabase
-      .from("posts")
-      .insert([
-        {
-          name: name,
-          email: email,
-          price: price,
-          area: area,
-          beds: beds,
-          baths: baths,
-          description: description,
-          location: location,
-          address: address,
-          number: phone,
-          type: type,
-        },
-      ]);
+    const { data, error } = await supabase.from("posts").insert([
+      {
+        name: name,
+        email: email,
+        price: price,
+        area: area,
+        beds: beds,
+        baths: baths,
+        description: description,
+        location: location,
+        address: address,
+        number: phone,
+        type: type,
+      },
+    ]);
     if (error) throw error;
   };
 
@@ -86,7 +79,12 @@ function AdPost() {
       >
         Add post
       </Button>
-      <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
+      <Modal
+        closeOnOverlayClick={false}
+        isOpen={isOpen}
+        onClose={onClose}
+        size={"xl"}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Submit Request</ModalHeader>
@@ -134,33 +132,36 @@ function AdPost() {
                 onChange={(e) => setAddress(e.target.value)}
               />
             </FormControl>
-            <FormControl isRequired>
-              <FormLabel htmlFor="location">Location</FormLabel>
-              <Select
-                id="location"
-                placeholder="Select location"
-                onChange={(e) => setLocation(e.target.value)}
-              >
-                <option>Badda</option>
-                <option>Gulshan</option>
-                <option>Banani</option>
-                <option>Rampura</option>
-                <option>Baridhara</option>
-              </Select>
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel htmlFor="type">Type</FormLabel>
-              <Select
-                id="type"
-                placeholder="Select type"
-                onChange={(e) => setType(e.target.value)}
-              >
-                <option>Hostel</option>
-                <option>Apartment</option>
-                <option>Roomate</option>
-                <option>Sublet</option>
-              </Select>
-            </FormControl>
+            <HStack>
+              <FormControl isRequired>
+                <FormLabel htmlFor="location">Location</FormLabel>
+                <Select
+                  id="location"
+                  placeholder="Select location"
+                  onChange={(e) => setLocation(e.target.value)}
+                >
+                  <option>Badda</option>
+                  <option>Gulshan</option>
+                  <option>Banani</option>
+                  <option>Rampura</option>
+                  <option>Baridhara</option>
+                </Select>
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel htmlFor="type">Type</FormLabel>
+                <Select
+                  id="type"
+                  placeholder="Select type"
+                  onChange={(e) => setType(e.target.value)}
+                >
+                  <option>Hostel</option>
+                  <option>Apartment</option>
+                  <option>Roommate</option>
+                  <option>Sublet</option>
+                </Select>
+              </FormControl>
+            </HStack>
+
             <HStack>
               <FormControl isRequired>
                 <FormLabel htmlFor="beds">Beds</FormLabel>
@@ -177,6 +178,17 @@ function AdPost() {
                   placeholder="2"
                   onChange={(e) => setBaths(e.target.value)}
                 />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel htmlFor="completion">Completion</FormLabel>
+                <Select
+                  id="completion"
+                  placeholder="Select status"
+                  onChange={(e) => setType(e.target.value)}
+                >
+                  <option>Ready</option>
+                  <option>Not Ready</option>
+                </Select>
               </FormControl>
             </HStack>
             <HStack>
@@ -225,7 +237,6 @@ function AdPost() {
                   description,
                   type
                 );
-
               }}
             >
               Submit

@@ -28,6 +28,7 @@ export default function RentCard({
   image,
   post_id,
   phone,
+  children,
 }) {
   return (
     <div
@@ -42,11 +43,11 @@ export default function RentCard({
         <Stack
           borderWidth="1px"
           borderRadius="lg"
-          w={"100%"}
-          height={{ sm: "476px", md: "20rem" }}
+          w={"70%"}
+          height={'35vh'}
           direction={{ base: "column", md: "row" }}
           bg={useColorModeValue("white", "gray.900")}
-          boxShadow={"2xl"}
+          boxShadow={"lg"}
           padding={4}
         >
           <Flex flex={1} bg="blue.200" borderRadius={"lg"}>
@@ -115,6 +116,7 @@ export default function RentCard({
                 >
                   Email
                 </Button>
+                {children}
               </HStack>
             </Flex>
           </Stack>

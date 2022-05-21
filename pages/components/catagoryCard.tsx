@@ -22,7 +22,10 @@ import {
           height={'150px'}
           w={'300px'}
           bg={useColorModeValue('white', 'gray.800')}
-          boxShadow={'2xl'}
+          boxShadow={'lg'}
+          _hover={{
+            boxShadow:'2xl',
+          }}
           rounded={'lg'}
           pos={'relative'}
           display={"flex"}

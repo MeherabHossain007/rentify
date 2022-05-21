@@ -75,7 +75,23 @@ function profile({ posts }) {
                       "https://firebasestorage.googleapis.com/v0/b/rentify-4f59b.appspot.com/o/colonial-style-house-night-scene.jpg?alt=media&token=6bfee092-54bc-4c68-904b-5d7af87a78c0"
                     }
                     post_id={posts.post_id}
-                  />
+                  >
+                    <Button
+                      as={"a"}
+                      w={100}
+                      fontSize={"sm"}
+                      fontWeight={400}
+                      color="white"
+                      variant={"solid"}
+                      bg="green.400"
+                      _hover={{
+                        bg: "green.400",
+                      }}
+                      href={"/signUp"}
+                    >
+                      Book Now
+                    </Button>
+                  </RentCard>
                 </WrapItem>
               ) : (
                 ""

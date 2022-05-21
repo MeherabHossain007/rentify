@@ -11,9 +11,8 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  useToast,
-  FormHelperText,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { supabase } from "../../utils/supabaseClient";
@@ -101,7 +100,6 @@ export default function Login() {
                 align={"start"}
                 justify={"space-between"}
               >
-                <Checkbox>Remember me</Checkbox>
                 <Link color={"green.400"}>Forgot password?</Link>
               </Stack>
               <Button
@@ -114,7 +112,12 @@ export default function Login() {
                   e.preventDefault();
                   handleLogin(email, password);
                   if (islogin === false) {
-                    alert("Password or email is invalid");
+                    toast({
+                      title: "password or username is invalid",
+                      status: "error",
+                      duration: 1000,
+                      isClosable: true,
+                    })
                   }
                 }}
               >
