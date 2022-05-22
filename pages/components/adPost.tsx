@@ -35,6 +35,7 @@ function AdPost() {
   const [baths, setBaths] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
+  const [cstatus, setCstatus] = useState("");
 
   const handeleSubmit = async (
     name: string,
@@ -47,7 +48,8 @@ function AdPost() {
     beds: string,
     baths: string,
     description: string,
-    type: string
+    type: string,
+    status: string
   ) => {
     const { data, error } = await supabase.from("posts").insert([
       {
@@ -62,6 +64,7 @@ function AdPost() {
         address: address,
         number: phone,
         type: type,
+        status: status,
       },
     ]);
     if (error) throw error;
@@ -184,7 +187,7 @@ function AdPost() {
                 <Select
                   id="completion"
                   placeholder="Select status"
-                  onChange={(e) => setType(e.target.value)}
+                  onChange={(e) => setCstatus(e.target.value)}
                 >
                   <option>Ready</option>
                   <option>Not Ready</option>
@@ -224,6 +227,7 @@ function AdPost() {
               variant="ghost"
               onClick={(e) => {
                 e.preventDefault();
+                onClose();
                 handeleSubmit(
                   name,
                   email,
@@ -235,7 +239,8 @@ function AdPost() {
                   beds,
                   baths,
                   description,
-                  type
+                  type,
+                  cstatus
                 );
               }}
             >

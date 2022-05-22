@@ -10,13 +10,15 @@ import {
   Link,
   Stack,
   Text,
+  useBoolean,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { FaBed, FaBath, FaBorderAll } from "react-icons/fa";
-import React, { Component, Props, ReactDOM } from "react";
+import React, { Component, Props, ReactDOM, useEffect, useState } from "react";
 import router from "next/router";
 import AlertMassage from "./alert";
+import { supabase } from "../../utils/supabaseClient";
 export default function RentCard({
   amount,
   location,
@@ -28,23 +30,46 @@ export default function RentCard({
   image,
   post_id,
   phone,
-  children,
 }) {
+  var isBooked: boolean;
+  const [bookId, setId] = useState("");
+
+  useEffect(() => {
+    bookInfo();
+  }, []);
+
+  const bookInfo = async () => {
+    let { data, error } = await supabase
+      .from("booking_info")
+      .select("*")
+      .eq("book_id", post_id)
+      .single();
+    if (error) throw error;
+    if (data) {
+      console.log(data);
+      setId(data.book_id);
+      isBooked = true;
+    } else {
+      isBooked = false;
+    }
+  };
   return (
-    <div
-      onClick={() => {
-        router.push({
-          pathname: "/components/rentDetails",
-          query: post_id,
-        });
-      }}
-    >
-      <Center py={6}>
+    <div>
+      <Center
+        py={6}
+        as={"button"}
+        onClick={() => {
+          router.push({
+            pathname: "/components/rentDetails",
+            query: post_id,
+          });
+        }}
+      >
         <Stack
           borderWidth="1px"
           borderRadius="lg"
           w={"70%"}
-          height={'35vh'}
+          height={"35vh"}
           direction={{ base: "column", md: "row" }}
           bg={useColorModeValue("white", "gray.900")}
           boxShadow={"lg"}
@@ -100,7 +125,11 @@ export default function RentCard({
             </HStack>
             <Flex justifyContent={"flex-end"} flexDirection={"column"} flex={1}>
               <HStack py={4} justifyContent={"start"}>
-                <AlertMassage bname={"Call"} text={phone} header={"Phone Number"}/>
+                <AlertMassage
+                  bname={"Call"}
+                  text={phone}
+                  header={"Phone Number"}
+                />
                 <Button
                   as={"a"}
                   w={100}
@@ -116,10 +145,16 @@ export default function RentCard({
                 >
                   Email
                 </Button>
-                {children}
               </HStack>
             </Flex>
           </Stack>
+          {bookId === post_id ? (
+            <Badge colorScheme="green" h={5}>
+              Booked
+            </Badge>
+          ) : (
+            ""
+          )}
         </Stack>
       </Center>
     </div>

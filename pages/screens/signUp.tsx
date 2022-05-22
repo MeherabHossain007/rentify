@@ -14,6 +14,7 @@ import {
   useColorModeValue,
   Link,
   FormHelperText,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -24,6 +25,7 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const toast = useToast();
 
   const handleSignUp = async (
     Email: string,
@@ -33,8 +35,23 @@ export default function SignUp() {
     const { data, error } = await supabase
       .from("profiles")
       .insert([{ email: Email, name: Name, password: Password }]);
-    if (error) throw error;
-    
+    if (error){
+      toast({
+        title: "Signed Up Already",
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+      throw error;
+    } 
+    if (data) {
+      toast({
+        title: "Sign Up Successfully",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
   return (
     <Flex
@@ -99,7 +116,9 @@ export default function SignUp() {
                   </Button>
                 </InputRightElement>
               </InputGroup>
-              <FormHelperText>- Use at least one special character</FormHelperText>
+              <FormHelperText>
+                - Use at least one special character
+              </FormHelperText>
               <FormHelperText>- Use at least one number</FormHelperText>
             </FormControl>
             <Stack spacing={10} pt={2}>

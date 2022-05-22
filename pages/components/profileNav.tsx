@@ -20,6 +20,7 @@ import {
 import { useState } from "react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { supabase } from "../../utils/supabaseClient";
+import router from "next/router";
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
@@ -110,7 +111,11 @@ export default function ProfileNav({ id }) {
                   <br />
                   <MenuDivider />
                   <MenuItem>Account Settings</MenuItem>
-                  <MenuItem>Logout</MenuItem>
+                  <MenuItem
+                  onClick={()=>{
+                    router.push('/')
+                  }}
+                  >Logout</MenuItem>
                 </MenuList>
               </Menu>
             </Stack>

@@ -85,7 +85,7 @@ export default function Navbar() {
             variant={"link"}
             onClick={onlogOpen}
           >
-            Login
+            Sign in
           </Button>
           <Modal
             isOpen={islogOpen}

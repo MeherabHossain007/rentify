@@ -16,6 +16,7 @@ import AdPost from "../components/adPost";
 import ProfileNav from "../components/profileNav";
 import RentCard from "../components/rentCard";
 import { useEffect } from "react";
+import ProRentCard from "../components/proCard";
 
 export const getStaticProps = async () => {
   const { data: posts, error } = await supabase.from("posts").select("*");
@@ -62,7 +63,7 @@ function profile({ posts }) {
             {posts.map((posts) =>
               posts.email === email ? (
                 <WrapItem>
-                  <RentCard
+                  <ProRentCard
                     amount={posts.price}
                     location={posts.location}
                     type={posts.type}
@@ -77,7 +78,6 @@ function profile({ posts }) {
                     post_id={posts.post_id}
                   >
                     <Button
-                      as={"a"}
                       w={100}
                       fontSize={"sm"}
                       fontWeight={400}
@@ -87,11 +87,10 @@ function profile({ posts }) {
                       _hover={{
                         bg: "green.400",
                       }}
-                      href={"/signUp"}
                     >
                       Book Now
                     </Button>
-                  </RentCard>
+                  </ProRentCard>
                 </WrapItem>
               ) : (
                 ""

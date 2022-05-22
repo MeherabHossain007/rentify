@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Box,
     Center,
@@ -12,12 +12,17 @@ import {
   } from '@chakra-ui/react';
   
   export default function HomeCard({Title}) {
+    const [isActive, setIsActive] = useState(false);
+
+    const handleClick = () => {
+      setIsActive(current => !current);
+    };
     return (
       <VStack
       justify={"center"}
       >
        <Box
-          as={'a'}
+          as={'button'}
           p={16}
           height={'150px'}
           w={'300px'}
@@ -25,6 +30,13 @@ import {
           boxShadow={'lg'}
           _hover={{
             boxShadow:'2xl',
+          }}
+          style={{
+            backgroundColor: isActive ? 'mediumseagreen' : '',
+            color: isActive ? 'white' : '',
+          }}
+          onClick={()=>{
+           handleClick()
           }}
           rounded={'lg'}
           pos={'relative'}
