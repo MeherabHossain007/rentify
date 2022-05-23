@@ -36,6 +36,7 @@ function AdPost() {
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
   const [cstatus, setCstatus] = useState("");
+  const [image, setImage] = useState("");
 
   const handeleSubmit = async (
     name: string,
@@ -49,7 +50,8 @@ function AdPost() {
     baths: string,
     description: string,
     type: string,
-    status: string
+    status: string,
+    image: string
   ) => {
     const { data, error } = await supabase.from("posts").insert([
       {
@@ -65,10 +67,26 @@ function AdPost() {
         number: phone,
         type: type,
         status: status,
+        image: image,
       },
     ]);
     if (error) throw error;
   };
+
+  async function uploadAvatar(event) {
+    const file = event.target.files[0]
+    const fileExt = file.name.split('.').pop()
+    const fileName = `${Math.random()}.${fileExt}`
+    const filePath = `${fileName}`
+
+    let { data, error: uploadError } = await supabase.storage
+      .from('avatars')
+      .upload(filePath, file)
+
+    if(data){
+      setImage(String(filePath));
+    }
+  }
 
   return (
     <>
@@ -95,11 +113,12 @@ function AdPost() {
           <ModalBody>
             <FormControl isRequired as="button" borderColor={"white"}>
               <FormLabel>Choose Photo</FormLabel>
-              <Input
+              <input
                 type={"file"}
                 id={"flies"}
                 name={"flies"}
                 accept="image/png, image/jpeg"
+                onChange={uploadAvatar}
                 multiple
               />
             </FormControl>
@@ -240,7 +259,8 @@ function AdPost() {
                   baths,
                   description,
                   type,
-                  cstatus
+                  cstatus,
+                  image
                 );
               }}
             >
