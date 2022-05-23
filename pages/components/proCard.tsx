@@ -147,7 +147,7 @@ export default function ProRentCard({
             borderWidth="1px"
             borderRadius="lg"
             w={"100%"}
-            height={"35vh"}
+            height={"45vh"}
             direction={{ base: "column", md: "row" }}
             bg={useColorModeValue("white", "gray.900")}
             boxShadow={"lg"}

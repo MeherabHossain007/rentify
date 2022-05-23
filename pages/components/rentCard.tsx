@@ -69,7 +69,7 @@ export default function RentCard({
           borderWidth="1px"
           borderRadius="lg"
           w={"70%"}
-          height={"35vh"}
+          height={"45vh"}
           direction={{ base: "column", md: "row" }}
           bg={useColorModeValue("white", "gray.900")}
           boxShadow={"lg"}

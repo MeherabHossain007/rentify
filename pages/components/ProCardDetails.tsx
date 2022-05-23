@@ -69,12 +69,13 @@ export default function ProRentDetails() {
   const [bookId, setId] = useState("");
   const [status, setStatus] = useState("");
   const [time, setTime] = useState("");
+  const [image, setImage] = useState("");
 
   console.log(post_id);
   useEffect(() => {
     getPosts();
     getBook();
-  }, []);
+  });
 
   const getBook = async () => {
     let { data: booking_info, error } = await supabase
@@ -122,6 +123,7 @@ export default function ProRentDetails() {
       setType(posts.type);
       setStatus(posts.status);
       setTime(posts.upload);
+      setImage(posts.image);
     }
   };
   return (
@@ -137,9 +139,7 @@ export default function ProRentDetails() {
             <Image
               rounded={"md"}
               alt={"product image"}
-              src={
-                "https://firebasestorage.googleapis.com/v0/b/rentify-4f59b.appspot.com/o/living-room-interior-wall-mockup-warm-tones-with-leather-sofa-which-is-kitchen-3d-rendering.jpg?alt=media&token=27a58497-ecd7-4179-aa00-baa153b85b41"
-              }
+              src={`https://fahabcdzxgcwuzrpykgn.supabase.co/storage/v1/object/public/avatars/${image}`}
               fit={"cover"}
               align={"center"}
               w={"100%"}
