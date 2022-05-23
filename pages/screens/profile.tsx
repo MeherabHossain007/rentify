@@ -1,4 +1,3 @@
-import { AddIcon } from "@chakra-ui/icons";
 import {
   Button,
   Heading,
@@ -14,7 +13,6 @@ import React, { useState } from "react";
 import { supabase } from "../../utils/supabaseClient";
 import AdPost from "../components/adPost";
 import ProfileNav from "../components/profileNav";
-import RentCard from "../components/rentCard";
 import { useEffect } from "react";
 import ProRentCard from "../components/proCard";
 
