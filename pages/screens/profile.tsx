@@ -72,6 +72,7 @@ function profile({ posts }) {
                     bath={posts.baths}
                     area={posts.area}
                     phone={posts.number}
+                    email={posts.email}
                     image={
                       "https://firebasestorage.googleapis.com/v0/b/rentify-4f59b.appspot.com/o/colonial-style-house-night-scene.jpg?alt=media&token=6bfee092-54bc-4c68-904b-5d7af87a78c0"
                     }

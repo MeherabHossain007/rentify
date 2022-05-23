@@ -40,6 +40,7 @@ import { FaBath, FaBed, FaBorderAll } from "react-icons/fa";
 import { MdLocalShipping } from "react-icons/md";
 import { supabase } from "../../utils/supabaseClient";
 import Navbar from "./navBar";
+import ReviewSubmit from "./review";
 
 export default function RentDetails() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -65,12 +66,24 @@ export default function RentDetails() {
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
   const [time, setTime] = useState("");
+  const [review, setReview] = useState([]);
 
   console.log(post_id);
   useEffect(() => {
     getPosts();
+    getReviews();
   }, []);
 
+  const getReviews = async () => {
+    let { data: reviewlist, error } = await supabase
+      .from("reviewlist")
+      .select("*");
+    if (error) throw error;
+
+    if (reviewlist) {
+      setReview(reviewlist);
+    }
+  };
   const getPosts = async () => {
     let {
       data: posts,
@@ -213,6 +226,41 @@ export default function RentDetails() {
                 </SimpleGrid>
               </Box>
             </Stack>
+            <HStack
+              flex={1}
+              mx={1}
+              as={"button"}
+              onClick={() => {
+                onBOpen();
+              }}
+            >
+              <Box
+                h={"160%"}
+                w={"100%"}
+                boxShadow={"lg"}
+                rounded={"lg"}
+                pt={7}
+                flex={1}
+                _hover={{
+                  boxShadow: "2xl",
+                }}
+                flexDirection="column"
+                alignContent={"center"}
+              >
+                <Text textAlign="center" fontWeight="bold">
+                  Give Review
+                </Text>
+              </Box>
+              <Modal isOpen={isBOpen} onClose={onBClose}>
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalCloseButton />
+                  <ModalBody pb={6}>
+                    <ReviewSubmit post_id={post_id} />
+                  </ModalBody>
+                </ModalContent>
+              </Modal>
+            </HStack>
             <Flex justifyContent={"flex-end"} flexDirection={"column"} flex={1}>
               <VStack py={4} justifyContent={"start"}>
                 <Popover>
@@ -264,6 +312,43 @@ export default function RentDetails() {
               </VStack>
             </Flex>
           </Stack>
+        </SimpleGrid>
+        <Text
+          fontSize={{ base: "16px", lg: "18px" }}
+          color={useColorModeValue("green.500", "green.300")}
+          fontWeight={"500"}
+          textTransform={"uppercase"}
+          mb={"4"}
+        >
+          Reviews
+        </Text>
+        <SimpleGrid columns={2} spacing="40px" py={4}>
+          {review.map((review) =>
+            review.post_id == post_id ? (
+              <Box
+                boxShadow={"lg"}
+                p={4}
+                _hover={{
+                  boxShadow: "2xl",
+                }}
+              >
+                <FormControl>
+                  <FormLabel color={"green.400"}>Name</FormLabel>
+                  <Text>{review.name}</Text>
+                </FormControl>
+                <FormControl>
+                  <FormLabel color={"green.400"}>Title</FormLabel>
+                  <Text>{review.title}</Text>
+                </FormControl>
+                <FormControl>
+                  <FormLabel color={"green.400"}>Description</FormLabel>
+                  <Text>{review.review}</Text>
+                </FormControl>
+              </Box>
+            ) : (
+              ""
+            )
+          )}
         </SimpleGrid>
       </Container>
     </>
