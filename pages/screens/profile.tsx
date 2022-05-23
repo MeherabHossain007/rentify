@@ -25,7 +25,7 @@ export const getStaticProps = async () => {
     },
   };
 };
-function profile({ posts }) {
+function Profile({ posts }) {
   const router = useRouter();
   const id = router.query;
   const querystring = require("querystring");
@@ -102,4 +102,4 @@ function profile({ posts }) {
   );
 }
 
-export default profile;
+export default Profile;
